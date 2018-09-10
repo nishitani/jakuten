@@ -9,7 +9,9 @@
         <div class="row mb-2">
             <% items.forEach(function(item){ %>
             <div class="col-lg-8">
-                <img src="/img/items/<%= item[1] %>_m.jpg" class="img-fluid"/>
+                <a href="/item/<%= item[0] %>">
+                    <img src="/img/items/<%= item[1] %>_m.jpg" class="img-fluid"/>
+                </a>
             </div>
             <div class="col-lg-4">
                 <h2><%= item[2] %></h2>
