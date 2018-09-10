@@ -1,0 +1,53 @@
+<div id="carouselTop" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselTop" data-slide-to="0" class="active"></li>
+        <% for(var count = 1; count < banners.length; count++){ %>
+        <li data-target="#carouselTop" data-slide-to="<%= count %>"></li>
+        <% } %>
+    </ol>
+    <div class="carousel-inner">
+        <% banners.forEach(function(banner){ %>
+        <div class="carousel-item <%= (banner[0] == 1 ) ? 'active' : '' %>">
+            <a  href="<%= banner[3] %>">
+                <img class="d-block w-100" src="/img/banners/<%= banner[1] %>.jpg" alt="<%= banner[2] %>">
+            </a>
+        </div>
+        <% }) %>
+    </div>
+    <a class="carousel-control-prev" href="#carouselTop" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">前へ</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselTop" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">次へ</span>
+    </a>
+</div>
+
+<div class="container">
+    <section class="bs-docs-section mt-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Pickups</h1>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <% cards.forEach(function(card){ %>
+            <div class="col-lg-4">
+                <div class="card mb-5">
+                    <a href="/item/<%= card[0] %>">
+                        <img class="card-img-top" src="/img/items/<%= card[1] %>_s.jpg"/>
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= card[2] %></h5>
+                        <p class="card-text"><%= card[3] %></p>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </section>
+
+</div>
+
+    
