@@ -6,13 +6,53 @@
                 <img src="/img/items/<%= item[1] %>_l.jpg" class="img-fluid"/>
             </div>
             <div class="col-lg-6">
-                <h1><%= item[2] %></h1>
-                <h3><%= item[3] %></h3>
+                <h1 class="display-1"><%= item[2] %></h1>
+                <p class="lead"><%= item[3] %></h3>
                 <p><%= item[4] %></p>
+                <form id="shoppingCartForm">
+                    <div class="form-row">
+                        <div class="col input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-lg">数量</span>
+                            </div>
+                            <input id="addCartItem" type="hidden" value="<%= item[0] %>">
+                            <input id="addCartAmount" type="number" pattern="\d+" class="form-control" placeholder="1" value="1" required>
+                        </div>
+                        <div class="col input-group input-group-lg">
+                            <button id="addCartSubmit" type="button" class="btn btn-outline-primary btn-lg">買い物かごに入れる</button>
+                        </div>
+                    </div>
+                </form>
             </div>
+
         </div>
     </section>
 
 </div>
 
-    
+<script type="text/javascript">
+    $(function(){
+        $('#addCartSubmit').on('click',function(){
+            $.ajax({
+                url:'/api/addCart',
+                type:'POST',
+                data:{
+                    'item':$('#addCartItem').val(),
+                    'amount':$('#addCartAmount').val()
+                }
+            })
+            .done( (data) => {
+                $('.result').html(data);
+                console.log(data);
+                location.reload();
+            })
+            .fail( (data) => {
+                $('.result').html(data);
+                console.log(data);
+            })
+            .always( (data) => {
+            });
+            return false;
+        });
+    });
+</script>

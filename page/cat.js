@@ -9,22 +9,20 @@ router.use(bodyParser.json());
 var ejs = require('ejs');
 var db = require('../common/db');
 
-var sessionHandler = require("../common/session");
-
 router.get("/", function(req, res) {
-    var session = sessionHandler.parse(req.headers.cookie)  || {};
-    console.log('PAGE: ' + req.params.page + ' / Session Data: ' + JSON.stringify(session));
-    var items = db.exec('SELECT id, sku, name, title FROM items WHERE category = "' + req.params.cat + '";');
+    var sql = 'SELECT id, sku, name, title FROM items WHERE category = "' + req.params.cat + '";';
+    console.log(' SQL: ' + sql);
+    var items = db.exec(sql);
     if(!items || !items.length){
         res.statusCode = 404;
         res.setHeader("Content-Type", 'text/html; utf-8');
-        ejs.renderFile('./resources/templates/_base.ejs', {page: 'error', session: session}, function(err, output){
+        ejs.renderFile('./resources/templates/_base.ejs', {page: 'error', session: req.session}, function(err, output){
             res.end(output);  
         });
     }else{
         res.statusCode = 200;
         res.setHeader("Content-Type", 'text/html; utf-8');
-        ejs.renderFile('./resources/templates/_base.ejs', {page: 'cat', session: session, category: req.params.cat, items: items[0].values}, function(err, output){
+        ejs.renderFile('./resources/templates/_base.ejs', {page: 'cat', session: req.session, category: req.params.cat, items: items[0].values}, function(err, output){
             res.end(output);  
         });
     }
