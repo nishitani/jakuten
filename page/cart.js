@@ -7,24 +7,19 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 var ejs = require('ejs');
-var db = require('../common/db');
 
 router.get("/", function(req, res) {
-    var uid = req.params.uid ? Number(req.params.uid) :
-        ((!req.session || !req.session.user || !req.session.user.id) ? req.session.user.id : 0);
-    var sql = 'SELECT id, email, family_name, first_name, family_name_kana, first_name_kana FROM users WHERE id = ' + uid + ';';
-    console.log(' SQL: ' + sql);
-    var users = db.exec(sql);
-    if(!users || !users.length){
+    if(!req.session || !req.session.cart || !req.session.cart.items){
         res.statusCode = 404;
         res.setHeader("Content-Type", 'text/html; utf-8');
         ejs.renderFile('./resources/templates/_base.ejs', {page: 'error', session: req.session}, function(err, output){
             res.end(output);  
         });
     }else{
+        var items = req.session.cart.items;
         res.statusCode = 200;
         res.setHeader("Content-Type", 'text/html; utf-8');
-        ejs.renderFile('./resources/templates/_base.ejs', {page: 'profile', session: req.session, user: users[0].values}, function(err, output){
+        ejs.renderFile('./resources/templates/_base.ejs', {page: 'cart', session: req.session}, function(err, output){
             res.end(output);  
         });
     }

@@ -89,6 +89,7 @@ router.post("/", function(req, res) {
                 var id = items[0].values[0][0];
                 if(!session.cart.items[id]){
                     session.cart.items[id] = {
+                        sku: items[0].values[0][1],
                         name: items[0].values[0][2],
                         title: items[0].values[0][3],
                         price: items[0].values[0][4],
@@ -96,10 +97,22 @@ router.post("/", function(req, res) {
                     };
                 }else{
                     session.cart.items[id].amount = session.cart.items[id].amount + Number(req.body.amount);
+                    if(session.cart.items[id].amount == 0){
+                        delete session.cart.items[id];
+                    }
                     res.statusCode = 200;
-                    body = {total: 1000};
                 }
+                session.cart.count = 0;
+                session.cart.total = 0;
+                Object.keys(session.cart.items).forEach(function(key){
+                    session.cart.count += session.cart.items[key].amount;
+                    session.cart.total += session.cart.items[key].amount * session.cart.items[key].price;
+                });
             }
+            console.log(' CART:' + JSON.stringify(session.cart));
+            break;
+        case "clearCart":
+            session.cart = {};
             console.log(' CART:' + JSON.stringify(session.cart));
             break;
         default:

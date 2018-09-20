@@ -17,7 +17,8 @@ function start() {
   router.use("/img/*", contents);
   router.use("/api/:api", session, api);
   router.get("/", session, require("./page/top"));
-  router.use("/profile", session, require("./page/profile"));
+  router.use("/cart", session, require("./page/cart"));
+  router.use("/profile/:uid", session, require("./page/profile"));
   router.use("/cat/:cat", session, require("./page/cat"));
   router.use("/item/:id", session, require("./page/item"));
 

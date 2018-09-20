@@ -10,7 +10,7 @@ var ejs = require('ejs');
 var db = require('../common/db');
 
 router.get("/", function(req, res) {
-    var sql = 'SELECT id, sku, name, title, desc FROM items WHERE id = ' + req.params.id + ';';
+    var sql = 'SELECT id, sku, name, title, desc, original_price, sale_price FROM items WHERE id = ' + req.params.id + ';';
     console.log(' SQL: ' + sql);
     var items = db.exec(sql);
 
