@@ -10,7 +10,7 @@
             <fieldset id="registerFieldSetEmail">
                 <div class="form-group row">
                     <div class="col-lg-2"><label for="inputEmail" class="d-inline-block col-form-label m-2">メールアドレス</label></div>
-                    <div class="col-lg-8"><input type="email" class="form-control m-2" id="inputEmail" value="<%= session.user.email %>" readonly /></div>
+                    <div class="col-lg-8"><input type="email" class="form-control m-2" id="inputEmail" value="<%- session.user.email %>" readonly /></div>
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-secondary m-2" id="changeEmail">変更</button>
                         <button style="display: none" type="button" class="btn btn-primary m-2" id="submitEmail">更新</button>
@@ -42,9 +42,9 @@
             <fieldset id="registerFieldSetFamilyName">
                 <div class="form-group row">
                     <div class="col-lg-2"><label for="inputFamilyName" class="d-inline-block col-form-label m-2">姓</label></div>
-                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFamilyName" value="<%= session.user.family_name %>" readonly /></div>
+                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFamilyName" value="<%- session.user.family_name %>" readonly /></div>
                     <div class="col-lg-2"><label for="inputFamilyNameKana" class="d-inline-block col-form-label m-2">ふりがな</label></div>
-                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFamilyNameKana" value="<%= session.user.family_name_kana %>" readonly /></div>
+                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFamilyNameKana" value="<%- session.user.family_name_kana %>" readonly /></div>
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-secondary m-2" id="changeFamilyName">変更</button>
                         <button style="display: none" type="button" class="btn btn-primary m-2" id="submitFamilyName">更新</button>
@@ -58,9 +58,9 @@
             <fieldset id="registerFieldSetFirstName">
                 <div class="form-group row">
                     <div class="col-lg-2"><label for="inputFirstName" class="d-inline-block col-form-label m-2">名</label></div>
-                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFirstName" value="<%= session.user.first_name %>" readonly /></div>
+                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFirstName" value="<%- session.user.first_name %>" readonly /></div>
                     <div class="col-lg-2"><label for="inputFirstNameKana" class="d-inline-block col-form-label m-2">ふりがな</label></div>
-                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFirstNameKana" value="<%= session.user.first_name_kana %>" readonly /></div>
+                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFirstNameKana" value="<%- session.user.first_name_kana %>" readonly /></div>
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-secondary m-2" id="changeFirstName">変更</button>
                         <button style="display: none" type="button" class="btn btn-primary m-2" id="submitFirstName">更新</button>

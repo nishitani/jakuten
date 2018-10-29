@@ -11,23 +11,23 @@
             <div class="m-2">
                 <div class="row">
                     <div class="col col-6 mt-auto mb-1">
-                        <h5 class="mb-1"><%= item.name %></h5>
-                        <p class="mb-1"><%= item.title %></p>
+                        <h5 class="mb-1"><%- item.name %></h5>
+                        <p class="mb-1"><%- item.title %></p>
                     </div>
                     <div class="row col col-6">
                         <div class="col col-lg-6 col-12 mt-auto mb-1  text-right">
-                            <label for="price_<%= item.sku %>" class="col-form-label">価格</label>
-                            <span id="price_<%= item.sku %>"><%= item.price %></span>
+                            <label for="price_<%- item.sku %>" class="col-form-label">価格</label>
+                            <span id="price_<%- item.sku %>"><%- item.price %></span>
                         </div><div class="col col-lg-6 col-12 mt-auto mb-1  text-right">
-                            <label for="amount_<%= item.sku %>" class="col-form-label">数量</label>
-                            <span id="price_<%= item.sku %>"><%= item.amount %></span>
+                            <label for="amount_<%- item.sku %>" class="col-form-label">数量</label>
+                            <span id="price_<%- item.sku %>"><%- item.amount %></span>
                         </div>
                     </div>
                 </div>
                 <hr>
             </div>
             <% }); %>
-            <h4 class="col-12 text-right mt-1 mb-5 pr-2">合計金額：\ <%= session.cart.total %></h4>
+            <h4 class="col-12 text-right mt-1 mb-5 pr-2">合計金額：\ <%- session.cart.total %></h4>
             <div class="card w-100 mb-5"><div class="card-body">
                 <h3>決済情報の入力</h3>
                 <div class="form-group row">
@@ -54,7 +54,7 @@
                 <div class="form-group row">
                     <label for="shipping_address"" class="col col-lg-2 col-5 text-right col-form-label">住所</label>
                     <input id="shipping_address" type="text" class="col col-lg-10 col-7 form-control" placeholder="東京都千代田区千代田１－１－１">
-                    <input id="total" type="hidden" value="<%= session.cart.total %>">
+                    <input id="total" type="hidden" value="<%- session.cart.total %>">
                 </div>
             </div></div>
             <div class="d-flex justify-content-center">
