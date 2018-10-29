@@ -1,18 +1,231 @@
 
 <div class="container">
     <section class="bs-docs-section mt-5">
-        <div class="row mb-2">
-            <div class="col-lg-6">
-                <p><%= user[0] %></p>
-                <p><%= user[1] %></p>
-                <p><%= user[2] %></p>
-                <p><%= user[3] %></p>
-                <p><%= user[4] %></p>
-                <p><%= user[5] %></p>
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <h1>プロフィール</h1>
             </div>
         </div>
+        <form>
+            <fieldset id="registerFieldSetEmail">
+                <div class="form-group row">
+                    <div class="col-lg-2"><label for="inputEmail" class="d-inline-block col-form-label m-2">メールアドレス</label></div>
+                    <div class="col-lg-8"><input type="email" class="form-control m-2" id="inputEmail" value="<%= session.user.email %>" readonly /></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-secondary m-2" id="changeEmail">変更</button>
+                        <button style="display: none" type="button" class="btn btn-primary m-2" id="submitEmail">更新</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-6">
+                        <div id="changeEmailAlert" class="updateProfileAlerts mt-0 mb-5 ml-2 mr-2 alert alert-success" style="display: none">メールアドレスを更新しました</div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="registerFieldSetPassword">
+                <div class="form-group row">
+                    <div class="col-lg-2"><label for="inputPassword" class="d-inline-block col-form-label m-2">パスワード</label></div>
+                    <div class="col-lg-4"><input type="password" class="form-control m-2" id="inputPassword1" readonly /></div>
+                    <div class="col-lg-4"><input type="password" class="form-control m-2" id="inputPassword2" readonly /></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-secondary m-2" id="changePassword">変更</button>
+                        <button style="display: none" type="button" class="btn btn-primary m-2" id="submitPassword">更新</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="changePasswordAlert" class="updateProfileAlerts col-12 alert alert-success" style="display: none">パスワードを更新しました</div>
+                </div>
+            </fieldset>
+
+            <fieldset id="registerFieldSetFamilyName">
+                <div class="form-group row">
+                    <div class="col-lg-2"><label for="inputFamilyName" class="d-inline-block col-form-label m-2">姓</label></div>
+                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFamilyName" value="<%= session.user.family_name %>" readonly /></div>
+                    <div class="col-lg-2"><label for="inputFamilyNameKana" class="d-inline-block col-form-label m-2">ふりがな</label></div>
+                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFamilyNameKana" value="<%= session.user.family_name_kana %>" readonly /></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-secondary m-2" id="changeFamilyName">変更</button>
+                        <button style="display: none" type="button" class="btn btn-primary m-2" id="submitFamilyName">更新</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="changeFamilyNameAlert" class="updateProfileAlerts col-12 alert alert-success" style="display: none">パスワードを更新しました</div>
+                </div>
+            </fieldset>
+
+            <fieldset id="registerFieldSetFirstName">
+                <div class="form-group row">
+                    <div class="col-lg-2"><label for="inputFirstName" class="d-inline-block col-form-label m-2">名</label></div>
+                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFirstName" value="<%= session.user.first_name %>" readonly /></div>
+                    <div class="col-lg-2"><label for="inputFirstNameKana" class="d-inline-block col-form-label m-2">ふりがな</label></div>
+                    <div class="col-lg-3"><input type="text" class="form-control m-2" id="inputFirstNameKana" value="<%= session.user.first_name_kana %>" readonly /></div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-secondary m-2" id="changeFirstName">変更</button>
+                        <button style="display: none" type="button" class="btn btn-primary m-2" id="submitFirstName">更新</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="changeFirstNameAlert" class="updateProfileAlerts col-12 alert alert-success" style="display: none">パスワードを更新しました</div>
+                </div>
+            </fieldset>
+
+        </form>
     </section>
-
 </div>
+<script type="text/javascript">
+    $(function(){
+        $('#changeEmail').on('click',function(){
+            $('#inputEmail').attr('readonly', false);
+            $('#changeEmail').css('display', 'none');
+            $('#submitEmail').css('display', 'block');
+            $('.updateProfileAlerts').css('display', 'none');
+            return false;
+        });
+    });
+    $(function(){
+        $('#submitEmail').on('click',function(){
+            $.ajax({
+                url:'/api/changeProfile',
+                type:'POST',
+                data:{
+                    'attribute':'email',
+                    'email':$('#inputEmail').val()
+                }
+            })
+            .done( (data) => {
+                $('.result').html(data);
+                $('#inputEmail').attr('readonly', true);
+                $('#changeEmail').css('display', 'block');
+                $('#submitEmail').css('display', 'none');
+                $('#changeEmailAlert').css('display', 'block');
+                console.log(data);
+            })
+            .fail( (data) => {
+                console.log(data);
+            })
+            .always( (data) => {
+            });
+            return false;
+        });
+    });
 
+    $(function(){
+        $('#changePassword').on('click',function(){
+            $('#inputPassword1').attr('readonly', false);
+            $('#inputPassword2').attr('readonly', false);
+            $('#changePassword').css('display', 'none');
+            $('#submitPassword').css('display', 'block');
+            $('.updateProfileAlerts').css('display', 'none');
+            return false;
+        });
+    });
+    $(function(){
+        $('#submitPassword').on('click',function(){
+            $.ajax({
+                url:'/api/changeProfile',
+                type:'POST',
+                data:{
+                    'attribute':'password',
+                    'password':$('#inputPassword1').val()
+                }
+            })
+            .done( (data) => {
+                $('.result').html(data);
+                $('#inputPassword1').attr('readonly', true);
+                $('#inputPassword2').attr('readonly', true);
+                $('#changePassword').css('display', 'block');
+                $('#submitPassword').css('display', 'none');
+                $('#changeEmailAlert').css('display', 'block');
+                console.log(data);
+            })
+            .fail( (data) => {
+                console.log(data);
+            })
+            .always( (data) => {
+            });
+            return false;
+        });
+    });
+
+    $(function(){
+        $('#changeFamilyName').on('click',function(){
+            $('#inputFamilyName').attr('readonly', false);
+            $('#inputFamilyNameKana').attr('readonly', false);
+            $('#changeFamilyName').css('display', 'none');
+            $('#submitFamilyName').css('display', 'block');
+            $('.updateProfileAlerts').css('display', 'none');
+            return false;
+        });
+    });
+    $(function(){
+        $('#submitFamilyName').on('click',function(){
+            $.ajax({
+                url:'/api/changeProfile',
+                type:'POST',
+                data:{
+                    'attribute':'FamilyName',
+                    'familyName':$('#inputFamilyName').val(),
+                    'familyNameKana':$('#inputFamilyNameKana').val()
+                }
+            })
+            .done( (data) => {
+                $('.result').html(data);
+                $('#inputFamilyName').attr('readonly', true);
+                $('#inputFamilyNameKana').attr('readonly', true);
+                $('#changeFamilyName').css('display', 'block');
+                $('#submitFamilyName').css('display', 'none');
+                $('#changeEmailAlert').css('display', 'block');
+                console.log(data);
+            })
+            .fail( (data) => {
+                console.log(data);
+            })
+            .always( (data) => {
+            });
+            return false;
+        });
+    });
+
+
+    $(function(){
+        $('#changeFirstName').on('click',function(){
+            $('#inputFirstName').attr('readonly', false);
+            $('#inputFirstNameKana').attr('readonly', false);
+            $('#changeFirstName').css('display', 'none');
+            $('#submitFirstName').css('display', 'block');
+            $('.updateProfileAlerts').css('display', 'none');
+            return false;
+        });
+    });
+    $(function(){
+        $('#submitFirstName').on('click',function(){
+            $.ajax({
+                url:'/api/changeProfile',
+                type:'POST',
+                data:{
+                    'attribute':'FirstName',
+                    'firstName':$('#inputFirstName').val(),
+                    'firstNameKana':$('#inputFirstNameKana').val()
+                }
+            })
+            .done( (data) => {
+                $('.result').html(data);
+                $('#inputFirstName').attr('readonly', true);
+                $('#inputFirstNameKana').attr('readonly', true);
+                $('#changeFirstName').css('display', 'block');
+                $('#submitFirstName').css('display', 'none');
+                $('#changeEmailAlert').css('display', 'block');
+                console.log(data);
+            })
+            .fail( (data) => {
+                console.log(data);
+            })
+            .always( (data) => {
+            });
+            return false;
+        });
+    });
+</script>
     

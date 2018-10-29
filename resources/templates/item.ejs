@@ -3,15 +3,15 @@
     <section class="bs-docs-section mt-5">
         <div class="row mb-2">
             <div class="col-lg-6">
-                <img src="/img/items/<%= item[1] %>_l.jpg" class="img-fluid rounded"/>
+                <img src="/img/items/<%= item.sku %>_l.jpg" class="img-fluid rounded"/>
             </div>
             <div class="col-lg-6">
-                <h1 class="display-1"><%= item[2] %></h1>
-                <p class="lead"><%= item[3] %></h3>
-                <p><%= item[4] %></p>
+                <h1 class="display-1"><%= item.name %></h1>
+                <p class="lead"><%= item.title %></h3>
+                <p><%= item.desc %></p>
                 <div class="card rounded  m-3">
                     <h5 class="card-header">価格</h5>
-                    <h3 class="card-body text-right"><strike class="text-danger">\<%= item[5] %></strike> → \ <%= item[6] %></h3>
+                    <h3 class="card-body text-right"><strike class="text-danger">\<%= item.original_price %></strike> → \ <%= item.sale_price %></h3>
                 </div>
                 <form id="shoppingCartForm">
                     <div class="form-row m-3">
@@ -24,7 +24,7 @@
                                 <button id="addCartSubmit" type="button" class="btn btn-primary">買い物かごに入れる</button>
                             </div>
                         </div>
-                        <input id="addCartItem" type="hidden" value="<%= item[0] %>">
+                        <input id="addCartItem" type="hidden" value="<%= item.id %>">
                     </div>
                 </form>
             </div>

@@ -7,9 +7,9 @@
     </ol>
     <div class="carousel-inner">
         <% banners.forEach(function(banner){ %>
-        <div class="carousel-item <%= (banner[0] == 1 ) ? 'active' : '' %>">
-            <a  href="<%= banner[3] %>">
-                <img class="d-block w-100" src="/img/banners/<%= banner[1] %>.jpg" alt="<%= banner[2] %>">
+        <div class="carousel-item <%= (banner.id == 1 ) ? 'active' : '' %>">
+            <a  href="<%= banner.link %>">
+                <img class="d-block w-100" src="/img/banners/<%= banner.title %>.jpg" alt="<%= banner.desc %>">
             </a>
         </div>
         <% }) %>
@@ -35,12 +35,12 @@
             <% cards.forEach(function(card){ %>
             <div class="col-lg-4">
                 <div class="card m-2 h-auto">
-                    <a href="/item/<%= card[0] %>">
-                        <img class="card-img-top" src="/img/items/<%= card[1] %>_s.jpg"/>
+                    <a href="/item/<%= card.id %>">
+                        <img class="card-img-top" src="/img/items/<%= card.sku %>_s.jpg"/>
                     </a>
                     <div class="card-body h-100">
-                        <h5 class="card-title"><%= card[2] %></h5>
-                        <p class="card-text"><%= card[3] %></p>
+                        <h5 class="card-title"><%= card.name %></h5>
+                        <p class="card-text"><%= card.title %></p>
                     </div>
                 </div>
             </div>

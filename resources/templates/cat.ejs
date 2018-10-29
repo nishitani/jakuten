@@ -9,13 +9,13 @@
         <% items.forEach(function(item){ %>
         <div class="row mb-3">
             <div class="col-lg-8">
-                <a href="/item/<%= item[0] %>">
-                    <img src="/img/items/<%= item[1] %>_m.jpg" class="img-fluid rounded"/>
+                <a href="/item/<%= item.id %>">
+                    <img src="/img/items/<%= item.sku %>_m.jpg" class="img-fluid rounded"/>
                 </a>
             </div>
             <div class="col-lg-4">
-                <h2><%= item[2] %></h2>
-                <p><%= item[3] %></p>
+                <h2><%= item.name %></h2>
+                <p><%= item.title %></p>
             </div>
         </div>
         <% }) %>
