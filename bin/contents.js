@@ -19,7 +19,6 @@ router.get("/", function(req, res) {
   res.statusCode = 200;
   // console.log(require('parseurl').original(req));
   const file = path.join(__dirname, '../resources/contents/' + require('parseurl').original(req).pathname);
-  console.log(file);
   res.setHeader("Content-Type", mimes[path.extname(file)] || 'text/plain');
   fs.stat(file, function(err, stat){
     if(err) return errorResponse(404, res);

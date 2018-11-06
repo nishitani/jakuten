@@ -17,9 +17,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4"></div>
-                    <div class="col-lg-6">
-                        <div id="changeEmailAlert" class="updateProfileAlerts mt-0 mb-5 ml-2 mr-2 alert alert-success" style="display: none">メールアドレスを更新しました</div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div id="changeEmailAlert" class="updateProfileAlerts alert alert-success mt-0 mb-5 ml-5 mr-5" style="display: none">メールアドレスを更新しました</div>
                     </div>
                 </div>
             </fieldset>
@@ -35,7 +35,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div id="changePasswordAlert" class="updateProfileAlerts col-12 alert alert-success" style="display: none">パスワードを更新しました</div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div id="changePasswordAlert" class="updateProfileAlerts alert alert-success mt-0 mb-5 ml-5 mr-5" style="display: none">パスワードを更新しました</div>
+                    </div>
                 </div>
             </fieldset>
 
@@ -51,7 +54,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div id="changeFamilyNameAlert" class="updateProfileAlerts col-12 alert alert-success" style="display: none">パスワードを更新しました</div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div id="changeFamilyNameAlert" class="updateProfileAlerts alert alert-success mt-0 mb-5 ml-5 mr-5" style="display: none">姓を更新しました</div>
+                    </div>
                 </div>
             </fieldset>
 
@@ -67,7 +73,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div id="changeFirstNameAlert" class="updateProfileAlerts col-12 alert alert-success" style="display: none">パスワードを更新しました</div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <div id="changeFirstNameAlert" class="updateProfileAlerts alert alert-success mt-0 mb-5 ml-5 mr-5" style="display: none">名を更新しました</div>
+                    </div>
                 </div>
             </fieldset>
 
@@ -137,7 +146,7 @@
                 $('#inputPassword2').attr('readonly', true);
                 $('#changePassword').css('display', 'block');
                 $('#submitPassword').css('display', 'none');
-                $('#changeEmailAlert').css('display', 'block');
+                $('#changePasswordAlert').css('display', 'block');
                 console.log(data);
             })
             .fail( (data) => {
@@ -165,7 +174,7 @@
                 url:'/api/changeProfile',
                 type:'POST',
                 data:{
-                    'attribute':'FamilyName',
+                    'attribute':'familyName',
                     'familyName':$('#inputFamilyName').val(),
                     'familyNameKana':$('#inputFamilyNameKana').val()
                 }
@@ -176,7 +185,8 @@
                 $('#inputFamilyNameKana').attr('readonly', true);
                 $('#changeFamilyName').css('display', 'block');
                 $('#submitFamilyName').css('display', 'none');
-                $('#changeEmailAlert').css('display', 'block');
+                $('#changeFamilyNameAlert').css('display', 'block');
+                $('#navbarDropdownUser').text($('#inputFamilyName').val() + " " + $('#inputFirstName').val());
                 console.log(data);
             })
             .fail( (data) => {
@@ -205,7 +215,7 @@
                 url:'/api/changeProfile',
                 type:'POST',
                 data:{
-                    'attribute':'FirstName',
+                    'attribute':'firstName',
                     'firstName':$('#inputFirstName').val(),
                     'firstNameKana':$('#inputFirstNameKana').val()
                 }
@@ -216,7 +226,8 @@
                 $('#inputFirstNameKana').attr('readonly', true);
                 $('#changeFirstName').css('display', 'block');
                 $('#submitFirstName').css('display', 'none');
-                $('#changeEmailAlert').css('display', 'block');
+                $('#changeFirstNameAlert').css('display', 'block');
+                $('#navbarDropdownUser').text($('#inputFamilyName').val() + " " + $('#inputFirstName').val());
                 console.log(data);
             })
             .fail( (data) => {

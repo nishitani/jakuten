@@ -177,6 +177,41 @@ router.post("/", async function(req, res) {
                         console.log(err);
                     }
                     break;
+
+                case "familyName":
+                    if(!req.body.familyName || !req.body.familyNameKana){
+                        res.statusCode = 400;
+                        body = {error:'Parameter missing.'};
+                        break;
+                    }
+                    try{
+                        db.run('update users set family_name = "' + req.body.familyName + '", family_name_kana = "' + req.body.familyNameKana + '" where id = ' + session.user.id + ';');
+                        res.statusCode = 200;
+                        body = {};
+                    }catch(err){
+                        res.statusCode = 500;
+                        body = {error: 'データベース処理に失敗しました'};
+                        console.log(err);
+                    }
+                    break;
+
+                case "firstName":
+                    if(!req.body.firstName || !req.body.firstNameKana){
+                        res.statusCode = 400;
+                        body = {error:'Parameter missing.'};
+                        break;
+                    }
+                    try{
+                        db.run('update users set first_name = "' + req.body.firstName + '", first_name_kana = "' + req.body.firstNameKana + '" where id = ' + session.user.id + ';');
+                        res.statusCode = 200;
+                        body = {};
+                    }catch(err){
+                        res.statusCode = 500;
+                        body = {error: 'データベース処理に失敗しました'};
+                        console.log(err);
+                    }
+                    break;
+
                 default:
                     res.statusCode = 400;
                     body = {error: 'No such attribute.'};
