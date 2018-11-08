@@ -10,6 +10,7 @@ router.use(bodyParser.json());
 
 var ejs = require('ejs');
 var db = require('../common/db');
+var utils = require('../common/utils');
 
 router.get("/", async function(req, res) {
     if(!req.session || !req.session.user || !req.session.user.id){
@@ -54,7 +55,7 @@ router.get("/", async function(req, res) {
     }else{
         res.statusCode = 200;
         res.setHeader("Content-Type", 'text/html; utf-8');
-        ejs.renderFile(path.join(__dirname, '../../resources/templates/_base.ejs'), {page: 'history', session: req.session, histories: histories}, function(err, output){
+        ejs.renderFile(path.join(__dirname, '../../resources/templates/_base.ejs'), {page: 'history', session: req.session, histories: histories, utils: utils}, function(err, output){
             res.end(output);  
         });
     }

@@ -1,3 +1,4 @@
 .vscode/launch.json
 sqlite3.exe
 build.bat
+db.sqlite
