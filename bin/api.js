@@ -96,6 +96,18 @@ router.post("/", async function(req, res) {
             session.cart = {};
             console.log(' CART:' + JSON.stringify(session.cart));
             break;
+        case "comment":
+            if(!req.body.user || !req.body.text || !req.body.item){
+                res.statusCode = 400;
+                body = {error:'Parameter missing.'};
+                break;
+            }
+            await db.run('insert into comments (user_id, item_id, entry_date, comment) VALUES('
+                + Number(req.body.user) + ','
+                + Number(req.body.item) + ','
+                + (new Date()).getTime() + ','
+                + '"' + req.body.text.replace(/\r?\n/g, '<br>') + '");');
+            break;
         case "checkout":
             if(!session.cart || !req.body.pan || !req.body.expire_month || !req.body.expire_year || !req.body.cvc || !req.body.zip || !req.body.tel || !req.body.shipping_address || !req.body.total){
                 res.statusCode = 400;

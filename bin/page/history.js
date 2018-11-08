@@ -44,8 +44,6 @@ router.get("/", async function(req, res) {
             price  : entry.price,
             amount : entry.amount
         });
-
-        console.log(histories);
     });
     if(!histories){
         res.statusCode = 404;
