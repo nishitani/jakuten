@@ -11,53 +11,54 @@
             <div class="m-2">
                 <div class="row">
                     <div class="col col-6 mt-auto mb-1">
-                        <h5 class="mb-1"><%= item.name %></h5>
-                        <p class="mb-1"><%= item.title %></p>
+                        <h5 class="mb-1"><%- item.name %></h5>
+                        <p class="mb-1"><%- item.title %></p>
                     </div>
                     <div class="row col col-6">
                         <div class="col col-lg-6 col-12 mt-auto mb-1  text-right">
-                            <label for="price_<%= item.sku %>" class="col-form-label">価格</label>
-                            <span id="price_<%= item.sku %>"><%= item.price %></span>
+                            <label for="price_<%- item.sku %>" class="col-form-label">価格</label>
+                            <span id="price_<%- item.sku %>"><%- item.price %></span>
                         </div><div class="col col-lg-6 col-12 mt-auto mb-1  text-right">
-                            <label for="amount_<%= item.sku %>" class="col-form-label">数量</label>
-                            <span id="price_<%= item.sku %>"><%= item.amount %></span>
+                            <label for="amount_<%- item.sku %>" class="col-form-label">数量</label>
+                            <span id="price_<%- item.sku %>"><%- item.amount %></span>
                         </div>
                     </div>
                 </div>
                 <hr>
             </div>
             <% }); %>
-            <h4 class="col-12 text-right mt-1 mb-5 pr-2">合計金額：\ <%= session.cart.total %></h4>
+            <h4 class="col-12 text-right mt-1 mb-5 pr-2">合計金額：\ <%- session.cart.total %></h4>
             <div class="card w-100 mb-5"><div class="card-body">
                 <h3>決済情報の入力</h3>
                 <div class="form-group row">
-                    <label for="inputCardNum"" class="col col-lg-2 col-5 text-right mt-2 mb-0 align-bottom">カード番号</label>
-                    <input type="text" class="col col-lg-10 col-7 form-control" placeholder="0123456789012345">
+                    <label for="pan"" class="col col-lg-2 col-5 text-right col-form-label">カード番号</label>
+                    <input id="pan" type="text" class="col col-lg-10 col-7 form-control" placeholder="0123456789012345">
                 </div>
                 <div class="form-group row">
-                    <label for="inputCardNum"" class="col col-lg-2 col-5 text-right mt-2 mb-0 align-bottom">有効期限</label>
-                    <input type="text" class="col col-lg-2 col-2 form-control" placeholder="月">
+                    <label for="expire_month"" class="col col-lg-2 col-5 text-right col-form-label">有効期限</label>
+                    <input id="expire_month" type="text" class="col col-lg-2 col-2 form-control" placeholder="月">
                     <span class="col col-lg-1 col-1 mt-2 mb-0 text-center">/</span>
-                    <input type="text" class="col col-lg-2 col-2 form-control" placeholder="年">
-                    <label for="inputCardNum"" class="col col-lg-2 col-5 text-right mt-2 mb-0 align-bottom">CVV</label>
-                    <input type="text" class="col col-lg-3 col-5 form-control" placeholder="999">
+                    <input id="expire_year" type="text" class="col col-lg-2 col-2 form-control" placeholder="年">
+                    <label for="cvc"" class="col col-lg-2 col-5 text-right col-form-label">CVV</label>
+                    <input id="cvc" type="text" class="col col-lg-3 col-5 form-control" placeholder="999">
                 </div>
             </div></div>
             <div class="card w-100 mb-5"><div class="card-body">
                 <h3>配送情報の入力</h3>
                 <div class="form-group row">
-                    <label for="inputCardNum"" class="col col-lg-2 col-5 text-right mt-2 mb-0 align-bottom">郵便番号</label>
-                    <input type="text" class="col col-lg-3 col-7 form-control" placeholder="000-0000">
-                    <label for="inputCardNum"" class="col col-lg-2 col-5 text-right mt-2 mb-0 align-bottom">電話番号</label>
-                    <input type="text" class="col col-lg-5 col-7 form-control" placeholder="000-000-0000">
+                    <label for="zip"" class="col col-lg-2 col-5 text-right col-form-label">郵便番号</label>
+                    <input id="zip" type="text" class="col col-lg-3 col-7 form-control" placeholder="000-0000">
+                    <label for="tel"" class="col col-lg-2 col-5 text-right col-form-label">電話番号</label>
+                    <input id="tel" type="text" class="col col-lg-5 col-7 form-control" placeholder="000-000-0000">
                 </div>
                 <div class="form-group row">
-                    <label for="inputCardNum"" class="col col-lg-2 col-5 text-right mt-2 mb-0 align-bottom">住所</label>
-                    <input type="text" class="col col-lg-10 col-7 form-control" placeholder="東京都千代田区千代田１－１－１">
+                    <label for="shipping_address"" class="col col-lg-2 col-5 text-right col-form-label">住所</label>
+                    <input id="shipping_address" type="text" class="col col-lg-10 col-7 form-control" placeholder="東京都千代田区千代田１－１－１">
+                    <input id="total" type="hidden" value="<%- session.cart.total %>">
                 </div>
             </div></div>
             <div class="d-flex justify-content-center">
-                <a href="#" class="btn btn-primary btn-lg px-5" role="button" aria-pressed="true">購入を完了する</a>
+                <a href="#" id="submitPurchase" class="btn btn-primary btn-lg px-5" role="button">購入を完了する</a>
             </div>
         <% }else{ %>
             <div class="m-2">
@@ -71,49 +72,31 @@
     </section>
 
 </div>
-
 <script type="text/javascript">
     $(function(){
-        $('.changeAmountButton').on('click',function(){
+        $('#submitPurchase').on('click',function(){
             $.ajax({
-                url:'/api/addCart',
+                url:'/api/checkout',
                 type:'POST',
                 data:{
-                    'item': $(this).next().val(),
-                    'amount': $(this).parent().prev().val() - $(this).next().next().val(),
+                    'pan':$('#pan').val(),
+                    'expire_month':$('#expire_month').val(),
+                    'expire_year':$('#expire_year').val(),
+                    'cvc':$('#cvc').val(),
+                    'zip':$('#zip').val(),
+                    'tel':$('#tel').val(),
+                    'shipping_address':$('#shipping_address').val(),
+                    'total':$('#total').val()
                 }
             })
             .done( (data) => {
                 $('.result').html(data);
                 console.log(data);
-                location.reload();
+                location.href="/thanks";
             })
             .fail( (data) => {
                 $('.result').html(data);
-                console.log(data);
-            })
-            .always( (data) => {
-            });
-            return false;
-        });
-    });
-    $(function(){
-        $('.removeItemButton').on('click',function(){
-            $.ajax({
-                url:'/api/addCart',
-                type:'POST',
-                data:{
-                    'item':$(this).next().val(),
-                    'amount': $(this).next().next().val(),
-                }
-            })
-            .done( (data) => {
-                $('.result').html(data);
-                console.log(data);
-                location.reload();
-            })
-            .fail( (data) => {
-                $('.result').html(data);
+                $('#purchaseErrorAlert').text(data.responseJSON.error);
                 console.log(data);
             })
             .always( (data) => {

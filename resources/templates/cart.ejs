@@ -11,35 +11,35 @@
             <div class="m-2">
                 <div class="card-body row">
                     <div class="col">
-                        <img src="/img/items/<%= item.sku %>_s.jpg" class="img-fluid"/>
+                        <img src="/img/items/<%- item.sku %>_s.jpg" class="img-fluid"/>
                     </div>
                     <div class="col-6">
-                        <h5><%= item.name %></h5>
-                        <p><%= item.title %></p>
+                        <h5><%- item.name %></h5>
+                        <p><%- item.title %></p>
                     </div>
                     <div class="col container card bg-light">
-                        <form id="cartItem_<%= key %>" class="cartItemForm">
+                        <form id="cartItem_<%- key %>" class="cartItemForm">
                             <div class="form-group row">
-                                <label for="price_<%= item.sku %>" class="col-4 col-form-label">価格</label>
+                                <label for="price_<%- item.sku %>" class="col-4 col-form-label">価格</label>
                                 <div class="col-8">
-                                    <input type="text" class="form-control-plaintext text-right" id="price_<%= item.sku %>" value="<%= item.price %>">
+                                    <input type="text" class="form-control-plaintext text-right" id="price_<%- item.sku %>" value="<%- item.price %>">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="amount_<%= item.sku %>" class="col-4 col-form-label">数量</label>
+                                <label for="amount_<%- item.sku %>" class="col-4 col-form-label">数量</label>
                                 <div class="col-8 input-group">
-                                    <input type="text" class="form-control text-right" id="amount_<%= item.sku %>" value="<%= item.amount %>">
+                                    <input type="text" class="form-control text-right" id="amount_<%- item.sku %>" value="<%- item.amount %>">
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-outline-primary changeAmountButton">更新</button>
-                                        <input type="hidden" class="cartItemId" value="<%= key %>">
-                                        <input type="hidden" class="cartItemAmount" value="<%= item.amount %>">
+                                        <input type="hidden" class="cartItemId" value="<%- key %>">
+                                        <input type="hidden" class="cartItemAmount" value="<%- item.amount %>">
                                     </div>
                                 </div>
                             </div>
                             <div class="w-100 text-center">
                                 <button class="btn btn-outline-warning removeItemButton">カートから削除</button>
-                                <input type="hidden" class="cartItemId" value="<%= key %>">
-                                <input type="hidden" class="cartItemAmount" value="<%= -1 * item.amount %>">
+                                <input type="hidden" class="cartItemId" value="<%- key %>">
+                                <input type="hidden" class="cartItemAmount" value="<%- -1 * item.amount %>">
                             </div>
                         </form>
                     </div>
@@ -50,7 +50,7 @@
             <div class="card">
                 <div class="card-body w-100 row clearfix">
                     <div class="m-2 ml-auto">
-                        <h3 class="mt-2">合計金額：\ <%= session.cart.total %></h3>
+                        <h3 class="mt-2">合計金額：\ <%- session.cart.total %></h3>
                     </div>
                     <div class="m-2">
                         <% if(session && session.user && session.user.id) { %>
