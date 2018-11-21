@@ -1,78 +1,72 @@
-
-<div class="container">
-    <section class="bs-docs-section mt-5">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1>ショッピングカート</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <h1>ショッピングカート</h1>
+    </div>
+</div>
+<% if(Object.keys(session.cart.items).length > 0){ %>
+    <% var c = 0; Object.keys(session.cart.items).forEach(function(key){ var item = session.cart.items[key]; %>
+    <div class="m-2">
+        <div class="card-body row">
+            <div class="col">
+                <img src="/img/items/<%- item.sku %>_s.jpg" class="img-fluid"/>
+            </div>
+            <div class="col-6">
+                <h5><%- item.name %></h5>
+                <p><%- item.title %></p>
+            </div>
+            <div class="col container card bg-light">
+                <form id="cartItem_<%- key %>" class="cartItemForm">
+                    <div class="form-group row">
+                        <label for="price_<%- item.sku %>" class="col-4 col-form-label">価格</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control-plaintext text-right" id="price_<%- item.sku %>" value="<%- item.price %>">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="amount_<%- item.sku %>" class="col-4 col-form-label">数量</label>
+                        <div class="col-8 input-group">
+                            <input type="text" class="form-control text-right" id="amount_<%- item.sku %>" value="<%- item.amount %>">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-primary changeAmountButton">更新</button>
+                                <input type="hidden" class="cartItemId" value="<%- key %>">
+                                <input type="hidden" class="cartItemAmount" value="<%- item.amount %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100 text-center">
+                        <button class="btn btn-outline-warning removeItemButton">カートから削除</button>
+                        <input type="hidden" class="cartItemId" value="<%- key %>">
+                        <input type="hidden" class="cartItemAmount" value="<%- -1 * item.amount %>">
+                    </div>
+                </form>
             </div>
         </div>
-        <% if(Object.keys(session.cart.items).length > 0){ %>
-            <% var c = 0; Object.keys(session.cart.items).forEach(function(key){ var item = session.cart.items[key]; %>
+    </div>
+    <hr>
+    <% }); %>
+    <div class="card">
+        <div class="card-body w-100 row clearfix">
+            <div class="m-2 ml-auto">
+                <h3 class="mt-2">合計金額：\ <%- session.cart.total %></h3>
+            </div>
             <div class="m-2">
-                <div class="card-body row">
-                    <div class="col">
-                        <img src="/img/items/<%- item.sku %>_s.jpg" class="img-fluid"/>
-                    </div>
-                    <div class="col-6">
-                        <h5><%- item.name %></h5>
-                        <p><%- item.title %></p>
-                    </div>
-                    <div class="col container card bg-light">
-                        <form id="cartItem_<%- key %>" class="cartItemForm">
-                            <div class="form-group row">
-                                <label for="price_<%- item.sku %>" class="col-4 col-form-label">価格</label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control-plaintext text-right" id="price_<%- item.sku %>" value="<%- item.price %>">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="amount_<%- item.sku %>" class="col-4 col-form-label">数量</label>
-                                <div class="col-8 input-group">
-                                    <input type="text" class="form-control text-right" id="amount_<%- item.sku %>" value="<%- item.amount %>">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-primary changeAmountButton">更新</button>
-                                        <input type="hidden" class="cartItemId" value="<%- key %>">
-                                        <input type="hidden" class="cartItemAmount" value="<%- item.amount %>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="w-100 text-center">
-                                <button class="btn btn-outline-warning removeItemButton">カートから削除</button>
-                                <input type="hidden" class="cartItemId" value="<%- key %>">
-                                <input type="hidden" class="cartItemAmount" value="<%- -1 * item.amount %>">
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <% if(session && session.user && session.user.id) { %>
+                    <a href="/checkout" class="btn btn-lg btn-primary px-5">購入</a>
+                <% }else{ %>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">ログインまたは登録</a>
+                <% } %>
             </div>
-            <hr>
-            <% }); %>
-            <div class="card">
-                <div class="card-body w-100 row clearfix">
-                    <div class="m-2 ml-auto">
-                        <h3 class="mt-2">合計金額：\ <%- session.cart.total %></h3>
-                    </div>
-                    <div class="m-2">
-                        <% if(session && session.user && session.user.id) { %>
-                            <a href="/checkout" class="btn btn-lg btn-primary px-5">購入</a>
-                        <% }else{ %>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">ログインまたは登録</a>
-                        <% } %>
-                    </div>
-                </div>
+        </div>
+    </div>
+<% }else{ %>
+    <div class="m-2">
+        <div class="card">
+            <div class="card-body">
+                商品が入っていません。
             </div>
-        <% }else{ %>
-            <div class="m-2">
-                <div class="card">
-                    <div class="card-body">
-                        商品が入っていません。
-                    </div>
-                </div>
-            </div>
-        <% } %>
-    </section>
-
-</div>
+        </div>
+    </div>
+<% } %>
 
 <script type="text/javascript">
     $(function(){
@@ -93,6 +87,10 @@
             .fail( (data) => {
                 $('.result').html(data);
                 console.log(data);
+                if(data.responseJSON.error){
+                    $('#generalError').html(data.responseJSON.error);
+                    $('#generalError').css('display', 'block');
+                }
             })
             .always( (data) => {
             });
@@ -117,6 +115,10 @@
             .fail( (data) => {
                 $('.result').html(data);
                 console.log(data);
+                if(data.responseJSON.error){
+                    $('#generalError').html(data.responseJSON.error);
+                    $('#generalError').css('display', 'block');
+                }
             })
             .always( (data) => {
             });

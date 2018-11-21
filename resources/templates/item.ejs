@@ -1,64 +1,60 @@
-<div class="container">
-    <section class="bs-docs-section mt-5">
-        <div class="row mb-2">
-            <div class="col-lg-6">
-                <img src="/img/items/<%- item.sku %>_l.jpg" class="img-fluid rounded"/>
-            </div>
-            <div class="col-lg-6">
-                <h1 class="display-1"><%- item.name %></h1>
-                <p class="lead"><%- item.title %></h3>
-                <p><%- item.desc %></p>
-                <div class="card rounded  m-3">
-                    <h5 class="card-header">価格</h5>
-                    <h3 class="card-body text-right"><strike class="text-danger">\<%- item.original_price %></strike> → \ <%- item.sale_price %></h3>
-                </div>
-                <form id="shoppingCartForm">
-                    <div class="form-row m-3">
-                        <div class="input-group input-group-lg m-2">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="input-group-amount">数量</span>
-                            </div>
-                            <input id="addCartAmount" aria-describedby="input-group-amount" type="number" pattern="\d+" class="form-control" placeholder="1" value="1" required>
-                            <div class="input-group-append">
-                                <button id="addCartSubmit" type="button" class="btn btn-primary">買い物かごに入れる</button>
-                            </div>
-                        </div>
-                        <input id="addCartItem" type="hidden" value="<%- item.id %>">
-                    </div>
-                </form>
-            </div>
+<div class="row mb-2">
+    <div class="col-lg-6">
+        <img src="/img/items/<%- item.sku %>_l.jpg" class="img-fluid rounded"/>
+    </div>
+    <div class="col-lg-6">
+        <h1 class="display-1"><%- item.name %></h1>
+        <p class="lead"><%- item.title %></h3>
+        <p><%- item.desc %></p>
+        <div class="card rounded  m-3">
+            <h5 class="card-header">価格</h5>
+            <h3 class="card-body text-right"><strike class="text-danger">\<%- item.original_price %></strike> → \ <%- item.sale_price %></h3>
         </div>
-        <% if(session && session.user && session.user.id) { %>
-            <div class="alert alert-info">
-                <h4>商品レビューにご協力ください</h4>
-                <hr />
-                <form>
-                    <div class="input-group">
-                        <textarea class="form-control" aria-label="レビュー" id="reviewText"></textarea>
-                        <div class="input-group-append">
-                            <button class="btn btn-dark" type="button" id="submitReview">送信</button>
-                        </div>
-                        <input type="hidden" id="reviewUserId" value="<%- session.user.id %>" />
-                        <input type="hidden" id="reviewItemId" value="<%- item.id %>" />
+        <form id="shoppingCartForm">
+            <div class="form-row m-3">
+                <div class="input-group input-group-lg m-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="input-group-amount">数量</span>
                     </div>
-                </form>
-            </div>
-        <% } %>
-
-        <% comments.forEach(function(entry){ %>
-            <div class="card bg-light mb-1">
-                <div class="card-header">
-                    <%- utils.formatDate(entry.entry_date); %> | 
-                    <%- entry.family_name %>
-                    <%- entry.first_name %>
+                    <input id="addCartAmount" aria-describedby="input-group-amount" type="number" pattern="\d+" class="form-control" placeholder="1" value="1" required>
+                    <div class="input-group-append">
+                        <button id="addCartSubmit" type="button" class="btn btn-primary">買い物かごに入れる</button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <%- entry.comment %>
-                </div>
+                <input id="addCartItem" type="hidden" value="<%- item.id %>">
             </div>
-        <% }); %>
-    </section>
+        </form>
+    </div>
 </div>
+<% if(session && session.user && session.user.id) { %>
+    <div class="alert alert-info">
+        <h4>商品レビューにご協力ください</h4>
+        <hr />
+        <form>
+            <div class="input-group">
+                <textarea class="form-control" aria-label="レビュー" id="reviewText"></textarea>
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="button" id="submitReview">送信</button>
+                </div>
+                <input type="hidden" id="reviewUserId" value="<%- session.user.id %>" />
+                <input type="hidden" id="reviewItemId" value="<%- item.id %>" />
+            </div>
+        </form>
+    </div>
+<% } %>
+
+<% comments.forEach(function(entry){ %>
+    <div class="card bg-light mb-1">
+        <div class="card-header">
+            <%- utils.formatDate(entry.entry_date); %> | 
+            <%- entry.family_name %>
+            <%- entry.first_name %>
+        </div>
+        <div class="card-body">
+            <%- entry.comment %>
+        </div>
+    </div>
+<% }); %>
 
 <script type="text/javascript">
     $(function(){
@@ -79,6 +75,10 @@
             .fail( (data) => {
                 $('.result').html(data);
                 console.log(data);
+                if(data.responseJSON.error){
+                    $('#generalError').html(data.responseJSON.error);
+                    $('#generalError').css('display', 'block');
+                }
             })
             .always( (data) => {
             });
@@ -104,6 +104,10 @@
             .fail( (data) => {
                 $('.result').html(data);
                 console.log(data);
+                if(data.responseJSON.error){
+                    $('#generalError').html(data.responseJSON.error);
+                    $('#generalError').css('display', 'block');
+                }
             })
             .always( (data) => {
             });

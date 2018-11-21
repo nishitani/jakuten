@@ -171,6 +171,7 @@
                 </div>
                 <fieldset>
                     <div class="modal-body">
+                        <div class="alert alert-warning" id="loginError" style="display: none">error</div>
                         <div class="form-group">
                             <label for="inputEmail">メールアドレス</label>
                             <input type="email" class="form-control" id="inputEmail" placeholder="you@example.com" required>
@@ -207,7 +208,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="registerConfirmationAlert" class="alert alert-info" style="display: none">下記の内容で登録します。よろしいですか？</div>
-                    <div id="registerErrorAlert" class="alert alert-danger" style="display: none"></div>
+                    <div id="registerError" class="alert alert-danger" style="display: none"></div>
                     <fieldset id="registerFieldSet">
                         <div class="form-group">
                             <label for="inputEmail">メールアドレス</label>
@@ -251,6 +252,7 @@
 <script type="text/javascript">
     $(function(){
         $('#submitLogin').on('click',function(){
+            $('#loginError').css('display', 'none');
             $.ajax({
                 url:'/api/login',
                 type:'POST',
@@ -267,6 +269,10 @@
             .fail( (data) => {
                 $('.result').html(data);
                 console.log(data);
+                if(data.responseJSON.error){
+                    $('#loginError').html(data.responseJSON.error);
+                    $('#loginError').css('display', 'block');
+                }
             })
             .always( (data) => {
             });
@@ -330,14 +336,16 @@
             })
             .fail( (data) => {
                 $('.result').html(data);
-                $('#registerErrorAlert').css('display', 'block');
-                $('#registerErrorAlert').text(data.responseJSON.error);
                 $('#registerFieldSet input').removeClass('form-control-plaintext');
                 $('#registerModalTitle').text('新規会員登録');
                 $('#confirmRegister').css('display', 'none');
                 $('#inputRegister').css('display', 'flex');
                 $('#registerConfirmationAlert').css('display', 'none');
                 console.log(data);
+                if(data.responseJSON.error){
+                    $('#registerError').html(data.responseJSON.error);
+                    $('#registerError').css('display', 'block');
+                }
             })
             .always( (data) => {
             });
@@ -392,9 +400,40 @@
 </script>
 
 <% }; %>
-    
 <div style="padding-top: calc(8px*2 + 70px)">
-    <%- include(page, {}) %>
+    <% if( typeof banners !== 'undefined' ){ %>
+        <div id="carouselTop" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselTop" data-slide-to="0" class="active"></li>
+                <% for(var count = 1; count < banners.length; count++){ %>
+                <li data-target="#carouselTop" data-slide-to="<%- count %>"></li>
+                <% } %>
+            </ol>
+            <div class="carousel-inner">
+                <% banners.forEach(function(banner){ %>
+                <div class="carousel-item <%- (banner.id == 1 ) ? 'active' : '' %>">
+                    <a  href="<%- banner.link %>">
+                        <img class="d-block w-100" src="/img/banners/<%- banner.title %>.jpg" alt="<%- banner.desc %>">
+                    </a>
+                </div>
+                <% }) %>
+            </div>
+            <a class="carousel-control-prev" href="#carouselTop" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">前へ</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselTop" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">次へ</span>
+            </a>
+        </div>
+    <% } %> 
+    <div class="container">
+        <section class="bs-docs-section mt-5">
+            <div id="generalError" class="alert alert-danger" style="display:none"></div>
+            <%- include(page, {}) %>
+        </section>
+    </div>
 </div>
 
 

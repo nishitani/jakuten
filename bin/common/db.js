@@ -20,31 +20,43 @@ function prepare(){
 };
 
 exports.all =  function(sql, rows){
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+        console.log('  SQL:' + sql);
         db.serialize( function() {
             db.all(sql, function (error, rows){
-                console.log('  SQL:' + sql);
-                resolve(rows);
+                if(error){
+                    reject(new Error('Databse Error: SQL=' + sql + '\n-----\n' + error.stack ));
+                }else{
+                    resolve(rows);
+                }
             });
         });
     });
 }
 exports.get =  function(sql, rows){
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+        console.log('  SQL:' + sql);
         db.serialize( function() {
             db.get(sql, function (error, row){
-                console.log('  SQL:' + sql);
-                resolve(row);
+                if(error){
+                    reject(new Error('Databse Error: SQL=' + sql + '\n-----\n' + error.stack ));
+                }else{
+                    resolve(row);
+                }
             });
         });
     });
 }
 exports.run =  function(sql, rows){
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+        console.log('  SQL:' + sql);
         db.serialize( function() {
             db.run(sql, function (error){
-                console.log('  SQL:' + sql);
-                resolve(null);
+                if(error){
+                    reject(new Error('Databse Error: SQL=' + sql + '\n-----\n' + error.stack ));
+                }else{
+                    resolve(null);
+                }
             });
         });
     });
