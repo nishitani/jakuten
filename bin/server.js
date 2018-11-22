@@ -28,6 +28,7 @@ function start() {
   router.use("/cart", session, require("./page/cart"));
   router.use("/checkout", session, require("./page/checkout"));
   router.use("/thanks", session, require("./page/thanks"));
+  router.use("/*", contents);
 
   server.listen(3000);
   console.log("Welcome to JAKUTEN STORE.");

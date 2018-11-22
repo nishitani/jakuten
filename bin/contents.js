@@ -14,11 +14,12 @@ var opts = { mergeParams: true };
 var router = Router(opts);
 var fs = require('fs');
 const path = require('path');
+var url = require('parseurl');
 
 router.get("/", function(req, res) {
   res.statusCode = 200;
-  // console.log(require('parseurl').original(req));
-  const file = path.join(__dirname, '../resources/contents/' + require('parseurl').original(req).pathname);
+  console.log(' STATIC:' + req.originalUrl);
+  const file = path.join(__dirname, '../resources/contents/' + url.original(req).pathname);
   res.setHeader("Content-Type", mimes[path.extname(file)] || 'text/plain');
   fs.stat(file, function(err, stat){
     if(err) return errorResponse(404, res);

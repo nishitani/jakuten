@@ -4,7 +4,8 @@ sessions = {};
 session = (req, res, next) => {
     var sid = (req.headers.cookie + ';').match(/jakuten=(.+?);/);
     if(!sid || !sid[1] || !sessions[sid[1]]){
-        sid = md5(String(Object.keys(sessions).length + 1));
+        // sid = md5(String(Object.keys(sessions).length + 1));
+        sid = String(Object.keys(sessions).length + 4307).padStart(12, '0');
         sessions[sid] = {user: {}, cart: {}};
     }else{
         sid = sid[1];
