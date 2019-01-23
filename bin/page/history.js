@@ -13,6 +13,7 @@ var db = require('../common/db');
 var utils = require('../common/utils');
 
 router.get("/", async function(req, res) {
+    console.log('PAGE: HISTORY / Session Data: ' + JSON.stringify(req.session));
     if(!req.session || !req.session.user || !req.session.user.id){
         res.statusCode = 302;
         res.setHeader("Location", '/');

@@ -10,7 +10,7 @@ session = (req, res, next) => {
     }else{
         sid = sid[1];
     }
-    console.log(' SID: ' + sid + ", SESSION: " + JSON.stringify(sessions[sid]));
+    console.log('  SID: ' + sid + ", SESSION: " + JSON.stringify(sessions[sid]));
     req.sid = sid;
     req.session = sessions[sid];
     res.setHeader('Set-Cookie', 'jakuten=' + sid + '; path=/; max-age=1800;');

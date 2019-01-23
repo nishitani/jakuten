@@ -10,6 +10,7 @@ router.use(bodyParser.json());
 var ejs = require('ejs');
 
 router.get("/", async function(req, res) {
+    console.log('PAGE: CART / Session Data: ' + JSON.stringify(req.session));
     if(!req.session || !req.session.cart || !req.session.cart.items){
         res.statusCode = 404;
         res.setHeader("Content-Type", 'text/html; utf-8');

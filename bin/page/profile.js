@@ -11,6 +11,7 @@ var ejs = require('ejs');
 var db = require('../common/db');
 
 router.get("/", async function(req, res) {
+    console.log('PAGE: PROFILE / Session Data: ' + JSON.stringify(req.session));
     if(!req.session || !req.session.user || !req.session.user.id){
         res.statusCode = 302;
         res.setHeader("Location", '/');

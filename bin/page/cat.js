@@ -11,6 +11,7 @@ var ejs = require('ejs');
 var db = require('../common/db');
 
 router.get("/", async function(req, res) {
+    console.log('PAGE: CAT / Session Data: ' + JSON.stringify(req.session));
     var items = await db.all('SELECT id, sku, name, title FROM items WHERE category = "' + req.params.cat + '";');
     if(!items || !items.length){
         res.statusCode = 404;

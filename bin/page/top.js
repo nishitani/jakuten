@@ -13,6 +13,7 @@ var db = require('../common/db');
 // var session = require("../common/session");
 
 router.get("/", async function(req, res) {
+    console.log('PAGE: TOP / Session Data: ' + JSON.stringify(req.session));
     var banners = await db.all('SELECT id, title, desc, link FROM banners;');
     var cards = await db.all('SELECT id, sku, name, title FROM items;');
     res.statusCode = 200;

@@ -11,6 +11,7 @@ var ejs = require('ejs');
 var db = require('../common/db');
 
 router.get("/", function(req, res) {
+    console.log('PAGE: THANKS / Session Data: ' + JSON.stringify(req.session));
     if(!req.session || !req.session.user || !req.session.user.id) {
         res.statusCode = 404;
         res.setHeader("Content-Type", 'text/html; utf-8');
