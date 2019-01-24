@@ -1,3 +1,21 @@
+<form id="searchForm" action="/search" method="post">
+    <div class="input-group col-lg-12 mb-5">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">キーワード</span>
+        </div>
+        <input id="keyword" name="keyword" class="form-control" value="" required>
+        <div class="input-group-append"">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCategory" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                カテゴリを選んで検索
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownCategory">
+                <li><button class="dropdown-item submitSearch" name="cat" value="food">食品</li>
+                <li><button class="dropdown-item submitSearch" name="cat" value="interior">インテリア</li>
+                <li><button class="dropdown-item submitSearch" name="cat" value="realestate">不動産</li>
+            </div>
+        </div>
+    </div>
+</form>
 <div class="row">
     <div class="col-lg-12">
         <h1>Pickups</h1>

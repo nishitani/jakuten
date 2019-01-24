@@ -24,11 +24,13 @@ router.post("/", async function(req, res) {
                     break;
                 }
                 res.statusCode = 200;
+                res.setHeader('Set-Cookie', 'role=user; path=/; max-age=1800;');
                 user.display_name = user.family_name + " " + user.first_name;
                 session.user = user;
                 break;
             case "logout":
                 res.statusCode = 200;
+                res.setHeader('Set-Cookie', 'role=guest; path=/; max-age=1800;');
                 body = {};
                 session.user = {};
                 break;
@@ -53,6 +55,7 @@ router.post("/", async function(req, res) {
                     + '"' + req.body.first_name_kana + '"'
                     + ');');
                 res.statusCode = 200;
+                res.setHeader('Set-Cookie', 'role=user; path=/; max-age=1800;');
                 var user = await db.get('select id, email, family_name, first_name, family_name_kana, first_name_kana from users where email = "' + req.body.email + '";');
                 user.display_name = user.family_name + " " + user.first_name;
                 session.user = user;

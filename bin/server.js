@@ -28,6 +28,8 @@ function start() {
   router.use("/cart", session, require("./page/cart"));
   router.use("/checkout", session, require("./page/checkout"));
   router.use("/thanks", session, require("./page/thanks"));
+  router.use("/search", session, require("./page/search"));
+  router.use("/admin", session, require("./page/admin"));
   router.use("/*", contents);
 
   server.listen(3000);
