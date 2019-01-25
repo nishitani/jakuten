@@ -2,3 +2,4 @@
 sqlite3.exe
 build.bat
 db.sqlite
+*.exe
