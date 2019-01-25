@@ -16,9 +16,11 @@ router.get("/", async function(req, res) {
     console.log('PAGE: ADMIN / Session Data: ' + JSON.stringify(req.session));
     var role = (req.headers.cookie + ';').match(/role=(.+?);/);
     if(!role || !role[1] || (role[1]  != 'admin')){
-        res.statusCode = 302;
-        res.setHeader("Location", '/');
-        res.end();
+        res.statusCode = 200;
+        res.setHeader("Content-Type", 'text/html; utf-8');
+        ejs.renderFile(path.join(__dirname, '../../resources/templates/_base.ejs'), {page: 'admin', error: 'admin 以外は利用できません'}, function(err, output){
+            res.end(output);  
+        });
         return;
     }
     var result = await db.all('SELECT * FROM orders LEFT JOIN order_items ON orders.id = order_items.order_id LEFT JOIN users on orders.user_id = users.id;');

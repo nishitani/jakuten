@@ -25,7 +25,7 @@
                     <div class="form-group row">
                         <label for="amount_<%- item.sku %>" class="col-4 col-form-label">数量</label>
                         <div class="col-8 input-group">
-                            <input type="text" class="form-control text-right" id="amount_<%- item.sku %>" value="<%- item.amount %>">
+                            <input type="number" class="form-control text-right" id="amount_<%- item.sku %>" value="<%- item.amount %>" min="0" >
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-outline-primary changeAmountButton">更新</button>
                                 <input type="hidden" class="cartItemId" value="<%- key %>">

@@ -14,6 +14,10 @@ session = (req, res, next) => {
     req.sid = sid;
     req.session = sessions[sid];
     res.setHeader('Set-Cookie', 'jakuten=' + sid + '; path=/; max-age=1800;');
+    var role = (req.headers.cookie + ';').match(/role=(.+?);/);
+    if(!role){
+        res.setHeader('Set-Cookie', 'role=guest; path=/; max-age=1800;');
+    }
     next();
 };
 
