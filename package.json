@@ -26,5 +26,6 @@
   "pkg": {
     "scripts": "bin/**/*.js",
     "assets": "resources/**/*"
-  }
+  },
+  "devDependencies": {}
 }
